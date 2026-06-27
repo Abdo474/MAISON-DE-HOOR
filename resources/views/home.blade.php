@@ -324,11 +324,11 @@
                     <img src="{{ Storage::url($collection->media) }}" alt="{{ $collection->name }}" class="collection-image" style="width: 100%; height: 100%; object-fit: cover;">
                 @elseif($collection->media_type === 'video' && $collection->media)
                     <video style="width: 100%; height: 100%; object-fit: cover;" autoplay muted loop playsinline>
-                        <source src="{{ Storage::url($collection->media) }}" type="video/mp4">
+                        <source src="{{ Storage::url($collection->media) }}">
                     </video>
                 @elseif($collection->video)
                     <video style="width: 100%; height: 100%; object-fit: cover;" autoplay muted loop playsinline>
-                        <source src="{{ route('videos.stream', $collection->video->id) }}" type="video/mp4">
+                        <source src="{{ route('videos.stream', $collection->video->id) }}">
                     </video>
                 @else
                     <div class="collection-image">{{ $collection->name }}</div>

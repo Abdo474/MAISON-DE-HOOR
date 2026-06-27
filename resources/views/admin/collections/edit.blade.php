@@ -65,14 +65,14 @@
                                 <div style="background: white; padding: 1.5rem; border-radius: 6px; margin-bottom: 1.5rem; border: 1px solid #E0E0E0;">
                                     <p style="color: #666; margin: 0 0 1rem; font-weight: 600;">Current Video:</p>
                                     <video style="width: 100%; max-height: 300px; border-radius: 6px; background: #000;" controls>
-                                        <source src="{{ Storage::url($collection->media) }}" type="video/mp4">
+                                        <source src="{{ Storage::url($collection->media) }}">
                                     </video>
                                 </div>
                             @elseif($collection->video)
                                 <div style="background: white; padding: 1.5rem; border-radius: 6px; margin-bottom: 1.5rem; border: 1px solid #E0E0E0;">
                                     <p style="color: #666; margin: 0 0 1rem; font-weight: 600;">Current Video (Legacy):</p>
                                     <video style="width: 100%; max-height: 300px; border-radius: 6px; background: #000;" controls>
-                                        <source src="{{ route('videos.stream', $collection->video->id) }}" type="video/mp4">
+                                        <source src="{{ route('videos.stream', $collection->video->id) }}">
                                     </video>
                                     <p style="color: #999; margin: 1rem 0 0; font-size: 0.9rem;">
                                         Size: {{ number_format($collection->video->file_size / 1024 / 1024, 2) }}MB

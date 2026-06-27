@@ -27,11 +27,11 @@
                                  style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s;">
                         @elseif($collection->media_type === 'video' && $collection->media)
                             <video style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s;" autoplay muted loop playsinline>
-                                <source src="{{ Storage::url($collection->media) }}" type="video/mp4">
+                                <source src="{{ Storage::url($collection->media) }}">
                             </video>
                         @elseif($collection->video)
                             <video style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s;" autoplay muted loop playsinline>
-                                <source src="{{ route('videos.stream', $collection->video->id) }}" type="video/mp4">
+                                <source src="{{ route('videos.stream', $collection->video->id) }}">
                             </video>
                         @else
                             <div style="width: 100%; height: 100%; background: #FFFCF7; display: flex; align-items: center; justify-content: center; color: #999;">
