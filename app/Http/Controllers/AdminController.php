@@ -45,15 +45,15 @@ class AdminController extends Controller
     public function storeCollection(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255|unique:collections',
+            'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'media_type' => 'nullable|in:photo,video',
             'media_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
             'media_video' => 'nullable|file|max:102400',
         ]);
 
-        // Auto-generate slug from name
-        $validated['slug'] = Str::slug($validated['name']);
+        // Auto-generate a unique slug from name
+        $validated['slug'] = $this->generateUniqueCollectionSlug($validated['name']);
 
         // Handle media upload (do not depend only on selected radio value)
         if ($request->hasFile('media_video')) {
@@ -88,7 +88,7 @@ class AdminController extends Controller
     public function updateCollection(Request $request, Collection $collection)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255|unique:collections,name,' . $collection->id,
+            'name' => 'required|string|max:255',
             'description' => 'nullable|string',
             'video' => 'nullable|file|max:102400',
             'media_type' => 'nullable|in:photo,video',
@@ -96,8 +96,8 @@ class AdminController extends Controller
             'media_video' => 'nullable|file|max:102400',
         ]);
 
-        // Auto-generate slug from name
-        $validated['slug'] = Str::slug($validated['name']);
+        // Auto-generate a unique slug from name (ignore current collection)
+        $validated['slug'] = $this->generateUniqueCollectionSlug($validated['name'], $collection->id);
 
         // Handle new media format (do not depend only on selected radio value)
         if ($request->hasFile('media_video')) {
@@ -151,6 +151,31 @@ class AdminController extends Controller
     {
         $collection->delete();
         return back()->with('success', 'Collection deleted successfully');
+    }
+
+    private function generateUniqueCollectionSlug(string $name, ?int $ignoreId = null): string
+    {
+        $baseSlug = Str::slug($name);
+        $baseSlug = $baseSlug !== '' ? $baseSlug : 'collection';
+        $slug = $baseSlug;
+        $counter = 1;
+
+        $exists = Collection::query()
+            ->when($ignoreId, fn ($query) => $query->where('id', '!=', $ignoreId))
+            ->where('slug', $slug)
+            ->exists();
+
+        while ($exists) {
+            $slug = $baseSlug . '-' . $counter;
+            $counter++;
+
+            $exists = Collection::query()
+                ->when($ignoreId, fn ($query) => $query->where('id', '!=', $ignoreId))
+                ->where('slug', $slug)
+                ->exists();
+        }
+
+        return $slug;
     }
 
     /**
