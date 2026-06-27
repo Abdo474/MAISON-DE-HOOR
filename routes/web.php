@@ -40,6 +40,7 @@ Route::delete('/videos/{id}', [VideoController::class, 'destroy'])->name('videos
 
 // Collections Routes
 Route::get('/collections', [CollectionController::class, 'index'])->name('collections.index');
+Route::get('/collections/{collection}/media', [CollectionController::class, 'media'])->name('collections.media');
 Route::get('/collections/{slug}', [CollectionController::class, 'show'])->name('collections.show');
 Route::post('/collections/update-name', [CollectionController::class, 'updateName'])->name('collections.update-name');
 

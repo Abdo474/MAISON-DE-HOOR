@@ -62,14 +62,14 @@
                             @if($collection->media_type === 'photo' && $collection->media)
                                 <div style="background: white; padding: 1.5rem; border-radius: 6px; margin-bottom: 1.5rem; border: 1px solid #E0E0E0;">
                                     <p style="color: #666; margin: 0 0 1rem; font-weight: 600;">Current Photo:</p>
-                                    <img src="{{ Storage::url($collection->media) }}" alt="{{ $collection->name }}" 
+                                    <img src="{{ route('collections.media', $collection) }}" alt="{{ $collection->name }}" 
                                          style="width: 100%; max-height: 300px; border-radius: 6px; object-fit: cover;">
                                 </div>
                             @elseif(($collection->media_type === 'video' || $isStoredVideo) && $collection->media)
                                 <div style="background: white; padding: 1.5rem; border-radius: 6px; margin-bottom: 1.5rem; border: 1px solid #E0E0E0;">
                                     <p style="color: #666; margin: 0 0 1rem; font-weight: 600;">Current Video:</p>
                                     <video style="width: 100%; max-height: 300px; border-radius: 6px; background: #000;" controls>
-                                        <source src="{{ Storage::url($collection->media) }}">
+                                        <source src="{{ route('collections.media', $collection) }}">
                                     </video>
                                 </div>
                             @elseif($collection->video)

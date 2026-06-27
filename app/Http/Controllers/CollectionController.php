@@ -5,9 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\Collection;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CollectionController extends Controller
 {
+    public function media(Collection $collection)
+    {
+        if (!$collection->media || !Storage::disk('public')->exists($collection->media)) {
+            abort(404);
+        }
+
+        return response()->file(Storage::disk('public')->path($collection->media));
+    }
+
     public function index()
     {
         return view('collections.index');

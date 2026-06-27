@@ -325,10 +325,10 @@
             @endphp
             <a href="{{ $collection->slug ? route('collections.show', $collection->slug) : '#' }}" class="collection-item" style="text-decoration: none;">
                 @if($collection->media_type === 'photo' && $collection->media)
-                    <img src="{{ Storage::url($collection->media) }}" alt="{{ $collection->name }}" class="collection-image" style="width: 100%; height: 100%; object-fit: cover;">
+                    <img src="{{ route('collections.media', $collection) }}" alt="{{ $collection->name }}" class="collection-image" style="width: 100%; height: 100%; object-fit: cover;">
                 @elseif(($collection->media_type === 'video' || $isStoredVideo) && $collection->media)
                     <video style="width: 100%; height: 100%; object-fit: cover;" autoplay muted loop playsinline>
-                        <source src="{{ Storage::url($collection->media) }}">
+                        <source src="{{ route('collections.media', $collection) }}">
                     </video>
                 @elseif($collection->video)
                     <video style="width: 100%; height: 100%; object-fit: cover;" autoplay muted loop playsinline>

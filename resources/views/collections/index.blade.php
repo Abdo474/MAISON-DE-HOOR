@@ -27,11 +27,11 @@
                 <div style="position: relative; height: 350px; overflow: hidden; border-radius: 8px; cursor: pointer; transition: all 0.3s; group">
                     <a href="{{ $collection->slug ? route('collections.show', $collection->slug) : '#' }}" style="text-decoration: none; display: block; width: 100%; height: 100%;">
                         @if($collection->media_type === 'photo' && $collection->media)
-                            <img src="{{ Storage::url($collection->media) }}" alt="{{ $collection->name }}"
+                            <img src="{{ route('collections.media', $collection) }}" alt="{{ $collection->name }}"
                                  style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s;">
                         @elseif(($collection->media_type === 'video' || $isStoredVideo) && $collection->media)
                             <video style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s;" autoplay muted loop playsinline>
-                                <source src="{{ Storage::url($collection->media) }}">
+                                <source src="{{ route('collections.media', $collection) }}">
                             </video>
                         @elseif($collection->video)
                             <video style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s;" autoplay muted loop playsinline>
