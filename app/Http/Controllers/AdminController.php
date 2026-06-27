@@ -55,13 +55,13 @@ class AdminController extends Controller
         // Auto-generate slug from name
         $validated['slug'] = Str::slug($validated['name']);
 
-        // Handle media upload based on type
-        if ($request->input('media_type') === 'photo' && $request->hasFile('media_photo')) {
-            $validated['media'] = $request->file('media_photo')->store('collections', 'public');
-            $validated['media_type'] = 'photo';
-        } elseif ($request->input('media_type') === 'video' && $request->hasFile('media_video')) {
+        // Handle media upload (do not depend only on selected radio value)
+        if ($request->hasFile('media_video')) {
             $validated['media'] = $request->file('media_video')->store('collections', 'public');
             $validated['media_type'] = 'video';
+        } elseif ($request->hasFile('media_photo')) {
+            $validated['media'] = $request->file('media_photo')->store('collections', 'public');
+            $validated['media_type'] = 'photo';
         } else {
             // If no media type selected or no file uploaded
             $validated['media'] = null;
@@ -99,21 +99,21 @@ class AdminController extends Controller
         // Auto-generate slug from name
         $validated['slug'] = Str::slug($validated['name']);
 
-        // Handle new media format (photo or video)
-        if ($request->input('media_type') === 'photo' && $request->hasFile('media_photo')) {
-            // Delete old media if exists
-            if ($collection->media) {
-                \Storage::disk('public')->delete($collection->media);
-            }
-            $validated['media'] = $request->file('media_photo')->store('collections', 'public');
-            $validated['media_type'] = 'photo';
-        } elseif ($request->input('media_type') === 'video' && $request->hasFile('media_video')) {
+        // Handle new media format (do not depend only on selected radio value)
+        if ($request->hasFile('media_video')) {
             // Delete old media if exists
             if ($collection->media) {
                 \Storage::disk('public')->delete($collection->media);
             }
             $validated['media'] = $request->file('media_video')->store('collections', 'public');
             $validated['media_type'] = 'video';
+        } elseif ($request->hasFile('media_photo')) {
+            // Delete old media if exists
+            if ($collection->media) {
+                \Storage::disk('public')->delete($collection->media);
+            }
+            $validated['media'] = $request->file('media_photo')->store('collections', 'public');
+            $validated['media_type'] = 'photo';
         }
 
         // Legacy video handling (keep for backward compatibility)

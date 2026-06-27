@@ -19,13 +19,17 @@
             @endphp
             
             @foreach($collections as $collection)
+            @php
+                $mediaExt = $collection->media ? strtolower(pathinfo($collection->media, PATHINFO_EXTENSION)) : null;
+                $isStoredVideo = in_array($mediaExt, ['mp4', 'webm', 'mov', 'm4v']);
+            @endphp
             <div class="col-md-6">
                 <div style="position: relative; height: 350px; overflow: hidden; border-radius: 8px; cursor: pointer; transition: all 0.3s; group">
                     <a href="{{ $collection->slug ? route('collections.show', $collection->slug) : '#' }}" style="text-decoration: none; display: block; width: 100%; height: 100%;">
                         @if($collection->media_type === 'photo' && $collection->media)
                             <img src="{{ Storage::url($collection->media) }}" alt="{{ $collection->name }}"
                                  style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s;">
-                        @elseif($collection->media_type === 'video' && $collection->media)
+                        @elseif(($collection->media_type === 'video' || $isStoredVideo) && $collection->media)
                             <video style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s;" autoplay muted loop playsinline>
                                 <source src="{{ Storage::url($collection->media) }}">
                             </video>

@@ -319,10 +319,14 @@
     <h2 class="section-title">Our Collections</h2>
     <div class="collections-grid">
         @forelse($collections as $collection)
+            @php
+                $mediaExt = $collection->media ? strtolower(pathinfo($collection->media, PATHINFO_EXTENSION)) : null;
+                $isStoredVideo = in_array($mediaExt, ['mp4', 'webm', 'mov', 'm4v']);
+            @endphp
             <a href="{{ $collection->slug ? route('collections.show', $collection->slug) : '#' }}" class="collection-item" style="text-decoration: none;">
                 @if($collection->media_type === 'photo' && $collection->media)
                     <img src="{{ Storage::url($collection->media) }}" alt="{{ $collection->name }}" class="collection-image" style="width: 100%; height: 100%; object-fit: cover;">
-                @elseif($collection->media_type === 'video' && $collection->media)
+                @elseif(($collection->media_type === 'video' || $isStoredVideo) && $collection->media)
                     <video style="width: 100%; height: 100%; object-fit: cover;" autoplay muted loop playsinline>
                         <source src="{{ Storage::url($collection->media) }}">
                     </video>
