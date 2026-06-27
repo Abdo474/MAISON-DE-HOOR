@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Log;
+use Throwable;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
@@ -10,7 +12,13 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\AdminController;
 
 Route::get('/', function () {
-    $collections = \App\Models\Collection::all();
+    try {
+        $collections = \App\Models\Collection::all();
+    } catch (Throwable $e) {
+        Log::error('Home route failed to load collections', ['error' => $e->getMessage()]);
+        $collections = collect();
+    }
+
     return view('home', compact('collections'));
 })->name('home');
 
