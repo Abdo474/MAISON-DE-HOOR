@@ -16,10 +16,20 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install pdo pdo_pgsql mbstring bcmath zip \
     && rm -rf /var/lib/apt/lists/*
 
+RUN { \
+        echo 'file_uploads=On'; \
+        echo 'upload_max_filesize=120M'; \
+        echo 'post_max_size=120M'; \
+        echo 'max_file_uploads=50'; \
+        echo 'memory_limit=512M'; \
+        echo 'max_execution_time=300'; \
+    } > /usr/local/etc/php/conf.d/uploads.ini
+
 COPY --from=vendor /app/vendor /app/vendor
 COPY . /app
 
 RUN mkdir -p storage/framework/cache storage/framework/sessions storage/framework/views storage/logs bootstrap/cache \
+    && mkdir -p storage/app/public/collections \
     && chmod -R 775 storage bootstrap/cache
 
 EXPOSE 8080
