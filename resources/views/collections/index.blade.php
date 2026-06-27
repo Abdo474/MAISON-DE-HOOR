@@ -21,7 +21,7 @@
             @foreach($collections as $collection)
             <div class="col-md-6">
                 <div style="position: relative; height: 350px; overflow: hidden; border-radius: 8px; cursor: pointer; transition: all 0.3s; group">
-                    <a href="{{ route('collections.show', $collection->slug) }}" style="text-decoration: none; display: block; width: 100%; height: 100%;">
+                    <a href="{{ $collection->slug ? route('collections.show', $collection->slug) : '#' }}" style="text-decoration: none; display: block; width: 100%; height: 100%;">
                         @if($collection->media_type === 'photo' && $collection->media)
                             <img src="{{ Storage::url($collection->media) }}" alt="{{ $collection->name }}"
                                  style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s;">

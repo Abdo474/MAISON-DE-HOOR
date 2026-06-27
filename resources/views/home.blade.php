@@ -319,7 +319,7 @@
     <h2 class="section-title">Our Collections</h2>
     <div class="collections-grid">
         @forelse($collections as $collection)
-            <a href="{{ route('collections.show', $collection->slug) }}" class="collection-item" style="text-decoration: none;">
+            <a href="{{ $collection->slug ? route('collections.show', $collection->slug) : '#' }}" class="collection-item" style="text-decoration: none;">
                 @if($collection->media_type === 'photo' && $collection->media)
                     <img src="{{ Storage::url($collection->media) }}" alt="{{ $collection->name }}" class="collection-image" style="width: 100%; height: 100%; object-fit: cover;">
                 @elseif($collection->media_type === 'video' && $collection->media)
