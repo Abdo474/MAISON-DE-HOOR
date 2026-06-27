@@ -49,7 +49,7 @@ class AdminController extends Controller
             'description' => 'nullable|string',
             'media_type' => 'nullable|in:photo,video',
             'media_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
-            'media_video' => 'nullable|file|extensions:mp4,webm,mov,m4v|mimetypes:video/mp4,video/webm,video/quicktime,video/x-m4v,application/mp4|max:102400',
+            'media_video' => 'nullable|file|max:102400',
         ]);
 
         // Auto-generate slug from name
@@ -93,7 +93,7 @@ class AdminController extends Controller
             'video' => 'nullable|file|max:102400',
             'media_type' => 'nullable|in:photo,video',
             'media_photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:10240',
-            'media_video' => 'nullable|file|extensions:mp4,webm,mov,m4v|mimetypes:video/mp4,video/webm,video/quicktime,video/x-m4v,application/mp4|max:102400',
+            'media_video' => 'nullable|file|max:102400',
         ]);
 
         // Auto-generate slug from name
