@@ -148,8 +148,8 @@
                         @foreach($products as $product)
                             @php
                                 $allImages = [];
-                                if ($product->image) $allImages[] = Storage::url($product->image);
-                                foreach ($product->productImages as $pi) $allImages[] = Storage::url($pi->image);
+                                if ($product->image) $allImages[] = route('products.media', $product);
+                                foreach ($product->productImages as $pi) $allImages[] = route('product-images.media', $pi);
                             @endphp
                             <div style="cursor: pointer;">
                                 <!-- Image -->
