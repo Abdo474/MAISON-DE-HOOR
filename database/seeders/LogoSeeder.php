@@ -1,0 +1,25 @@
+<?php
+
+namespace Database\Seeders;
+
+use App\Models\Logo;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+
+class LogoSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        Logo::updateOrCreate(
+            ['filename' => 'logo.svg'],
+            [
+                'path' => 'images/logo.svg',
+                'alt_text' => 'Maison de Hoor Logo',
+                'is_active' => true,
+            ]
+        );
+    }
+}
