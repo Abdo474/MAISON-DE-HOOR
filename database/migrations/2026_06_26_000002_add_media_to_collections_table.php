@@ -9,8 +9,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('collections', function (Blueprint $table) {
-            $table->string('media')->nullable()->after('image'); // File path
-            $table->enum('media_type', ['video', 'photo'])->nullable()->after('media'); // Type indicator
+            $table->string('media')->nullable(); // File path
+            $table->enum('media_type', ['video', 'photo'])->nullable(); // Type indicator
         });
     }
 

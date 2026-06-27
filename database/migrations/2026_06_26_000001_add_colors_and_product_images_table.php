@@ -10,7 +10,7 @@ return new class extends Migration
     {
         // Add colors column to products table
         Schema::table('products', function (Blueprint $table) {
-            $table->json('colors')->nullable()->after('image');
+            $table->json('colors')->nullable();
         });
 
         // Create product_images table for multiple images
