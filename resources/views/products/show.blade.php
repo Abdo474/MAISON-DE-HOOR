@@ -9,8 +9,8 @@
         <div class="col-md-6">
             @php
                 $galleryImages = [];
-                if ($product->image) $galleryImages[] = Storage::url($product->image);
-                foreach ($product->productImages as $pi) $galleryImages[] = Storage::url($pi->image);
+                if ($product->image) $galleryImages[] = route('products.media', $product);
+                foreach ($product->productImages as $pi) $galleryImages[] = route('product-images.media', $pi);
             @endphp
 
             @if(count($galleryImages) > 0)

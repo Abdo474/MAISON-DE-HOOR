@@ -4,10 +4,30 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\Collection;
+use App\Models\ProductImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
+    public function media(Product $product)
+    {
+        if (!$product->image || !Storage::disk('public')->exists($product->image)) {
+            abort(404);
+        }
+
+        return response()->file(Storage::disk('public')->path($product->image));
+    }
+
+    public function imageMedia(ProductImage $productImage)
+    {
+        if (!$productImage->image || !Storage::disk('public')->exists($productImage->image)) {
+            abort(404);
+        }
+
+        return response()->file(Storage::disk('public')->path($productImage->image));
+    }
+
     /**
      * Display a listing of the resource.
      */

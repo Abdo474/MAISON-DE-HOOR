@@ -30,6 +30,8 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Product Routes (all public for testing)
 Route::resource('products', ProductController::class);
+Route::get('/products/{product}/media', [ProductController::class, 'media'])->name('products.media');
+Route::get('/product-images/{productImage}/media', [ProductController::class, 'imageMedia'])->name('product-images.media');
 
 // Video Routes
 Route::get('/videos/upload', function() { return view('videos.upload'); })->name('videos.upload.page');

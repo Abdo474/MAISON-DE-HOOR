@@ -107,7 +107,7 @@
                             @if($product->image)
                                 <div style="background: white; padding: 1.5rem; border-radius: 6px; margin-bottom: 1.5rem; border: 1px solid #E0E0E0;">
                                     <p style="color: #666; margin: 0 0 1rem; font-weight: 600;">Current Image:</p>
-                                    <img src="{{ Storage::url($product->image) }}" alt="{{ $product->name }}" style="max-width: 200px; max-height: 200px; border-radius: 6px;">
+                                    <img src="{{ route('products.media', $product) }}" alt="{{ $product->name }}" style="max-width: 200px; max-height: 200px; border-radius: 6px;">
                                 </div>
                             @endif
                             
