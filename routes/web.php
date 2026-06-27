@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Log;
-use Throwable;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
@@ -14,7 +13,7 @@ use App\Http\Controllers\AdminController;
 Route::get('/', function () {
     try {
         $collections = \App\Models\Collection::all();
-    } catch (Throwable $e) {
+    } catch (\Throwable $e) {
         Log::error('Home route failed to load collections', ['error' => $e->getMessage()]);
         $collections = collect();
     }
